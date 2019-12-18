@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    ports: 
+      - 5432:5432
+    environment: 
+      POSTGRES_USER: eiti
+      POSTGRES_PASSWORD: eiti
+      POSTGRES_DB: test
+    volumes: 
+      - ./database/data:/var/lib/postgresql/data
+  api:
+    build: ./api
+    ports: 
+      - 3000:3000
+    volumes: 
+      - ./api:/usr/api
+    depends_on: 
+      - database
